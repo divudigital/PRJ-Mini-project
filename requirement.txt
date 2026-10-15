@@ -1,0 +1,26 @@
+# 5G Network Agentic AI Infrastructure Dependencies
+
+# UI & Data Visualization
+streamlit>=1.32.0
+plotly>=5.19.0
+
+# Data Processing & Analytics
+pandas>=2.2.0
+numpy>=1.26.0
+
+# Agentic Orchestration & Graph Engine
+langgraph>=0.0.25
+langchain>=0.1.10
+langchain-community>=0.0.25
+
+# Machine Learning & AI Modeling
+xgboost>=2.0.3
+lightgbm>=4.3.0
+scikit-learn>=1.4.0
+
+# Local Ollama Inference & Schema Validation
+pydantic>=2.6.0
+
+# Backend & Web Frameworks
+fastapi>=0.110.0
+uvicorn>=0.28.0
