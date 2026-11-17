@@ -1,0 +1,21 @@
+3GPP NETWORK GUIDELINES
+
+RSRP < -110 dBm:
+Recommended action:
+Immediate handover or power boost.
+
+Latency > 50 ms:
+Recommended action:
+Traffic steering and slice reallocation.
+
+Jitter > 20 ms:
+Recommended action:
+Buffer optimization and route balancing.
+
+Packet Loss > 5%:
+Recommended action:
+Priority QoS scheduling.
+
+SINR < 5 dB:
+Recommended action:
+Coverage optimization.

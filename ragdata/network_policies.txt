@@ -1,0 +1,13 @@
+NETWORK POLICY DATABASE
+
+Policy 1:
+Never increase transmission power above safe threshold.
+
+Policy 2:
+Always validate slice assignment before switching.
+
+Policy 3:
+Prefer handover over power increase if neighboring signal is stronger.
+
+Policy 4:
+URLLC traffic gets highest priority.

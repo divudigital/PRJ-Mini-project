@@ -1,0 +1,34 @@
+NETWORK REMEDIATION PLAYBOOK
+
+Scenario 1:
+Weak Signal
+
+Condition:
+RSRP below -110 dBm
+
+Action:
+Trigger power boost.
+Initiate neighboring cell handover.
+
+------------------------------------------------
+
+Scenario 2:
+High Latency
+
+Condition:
+Latency above 50 ms
+
+Action:
+Move users to low-latency slice (URLLC).
+
+------------------------------------------------
+
+Scenario 3:
+High Jitter
+
+Condition:
+Jitter above 20 ms
+
+Action:
+Traffic rerouting.
+Carrier aggregation.
