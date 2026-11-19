@@ -1,354 +1,225 @@
-# 5G QoS Network Intelligence Dashboard
+# AI/ML-Based 5G QoS Monitoring and Agentic Self-Healing Framework
 
-## 📱 Project Overview
+## Project Overview
 
-A **Streamlit-based AI/ML dashboard** for predicting and analyzing **5G Quality of Service (QoS)** metrics. The application provides real-time predictions for network performance, call drop risk assessment, and KPI impact analysis using machine learning models.
+This project presents a prototype framework for monitoring 5G network Quality of Service (QoS), assessing connection-drop risk, identifying potential network issues, and recommending remediation actions through an agentic workflow.
 
-### Key Features
-- 🎯 **AI-Powered QoS Prediction** – Real-time network QoS status prediction
-- 📊 **Interactive KPI Dashboard** – Visual analysis of network KPIs and their impact
-- 🚨 **Call Drop Risk Assessment** – Predicts call drop risk (LOW/MEDIUM/HIGH)
-- 📈 **Model Performance Metrics** – Compares multiple ML models (RF, XGBoost, LSTM, GRU, Transformer)
-- 🎨 **Dark Theme UI** – Modern neon-styled dashboard interface
-- ⚡ **Real-time Adjustments** – Live slider-based parameter tuning
+It combines machine-learning-based analysis with rule-based KPI monitoring, Retrieval-Augmented Generation (RAG), and LangGraph orchestration. A Streamlit dashboard provides an interactive interface for exploring network conditions and reviewing the agent's analysis and recommended actions.
 
----
+**Project positioning:** An integrated prototype for explainable 5G QoS monitoring and simulated self-healing.
 
-## 📋 Requirements
+## Key Features
 
-### System Requirements
-- **Python**: 3.8 or higher
-- **OS**: Windows, macOS, or Linux
-- **RAM**: 4GB minimum
-- **Storage**: 500MB minimum
+- **5G QoS Monitoring:** Analyze network KPIs such as signal strength, latency, and jitter.
+- **ML-Based Risk Assessment:** Use the available trained classification model to assess dropped-connection risk.
+- **Interactive Dashboard:** Explore network conditions and view analysis through Streamlit.
+- **Agentic Workflow:** Orchestrate monitoring, knowledge retrieval, root-cause analysis, and remediation recommendations.
+- **RAG Knowledge Retrieval:** Retrieve relevant context from the local telecom knowledge base using FAISS.
+- **Simulated Remediation:** Demonstrate proposed network actions through application-level tools.
+- **Docker Deployment:** Build and run the dashboard in a containerized environment.
 
-### Python Dependencies
-All dependencies are listed in `requirements.txt`:
+## System Architecture
 
+1. **Dashboard Layer – `app.py`**
+   Accepts network KPI inputs and presents QoS analysis, risk information, and agent responses.
+
+2. **Agent Orchestration – `agent.py`**
+   Coordinates the monitoring and remediation workflow using LangGraph.
+
+3. **Knowledge Retrieval – `retriever.py`**
+   Retrieves relevant telecom information from the local FAISS knowledge index.
+
+4. **Knowledge Base – `ragdata/`**
+   Contains telecom rules, network policies, and remediation playbook information.
+
+5. **Action Layer – `tools.py`**
+   Demonstrates proposed remediation operations through simulated application-level actions.
+
+6. **Dataset Processing – `main.py`**
+   Provides the dataset-oriented execution path.
+
+## Technology Stack
+
+| Area | Technologies |
+|---|---|
+| Programming | Python |
+| Dashboard | Streamlit, Plotly |
+| Data Processing | Pandas, NumPy |
+| Machine Learning | Scikit-learn, XGBoost, LightGBM |
+| Agent Orchestration | LangGraph, LangChain |
+| Retrieval | FAISS |
+| Deployment | Docker |
+
+## Project Structure
+
+```text
+PRJ-Mini-project/
+│
+├── app.py
+├── agent.py
+├── retriever.py
+├── tools.py
+├── main.py
+├── test_agent.py
+├── test_rag.py
+├── requirements.txt
+├── Dockerfile
+├── .dockerignore
+├── .gitignore
+├── IMPLEMENTED_FEATURES.md
+│
+├── ragdata/
+│   ├── 3gpp_rules.txt
+│   ├── network_policies.txt
+│   └── remediation_playbook.txt
+│
+├── faiss_index/
+│   ├── index.faiss
+│   └── index.pkl
+│
+└── colab_data/
+    └── Local model and dataset artifacts
 ```
-streamlit>=1.28.0
-pandas>=1.5.0
-numpy>=1.24.0
-plotly>=5.15.0
-scikit-learn>=1.3.0
-joblib>=1.3.0
+
+*Note: The exact contents of `colab_data/` depend on the local project setup. Model artifacts are excluded from GitHub and may need to be supplied separately.*
+
+## Workflow
+
+```text
+Network KPI Inputs
+        |
+        v
+Streamlit Dashboard
+        |
+        v
+QoS Monitoring and Risk Assessment
+        |
+        v
+LangGraph Agent Workflow
+        |
+        v
+Telecom Knowledge Retrieval (RAG)
+        |
+        v
+Root-Cause Analysis
+        |
+        v
+Remediation Recommendation
+        |
+        v
+Simulated Action Execution
+        |
+        v
+Dashboard Result
 ```
 
----
+## Local Installation
 
-## 🚀 Installation & Setup
-
-### Step 1: Clone or Navigate to Project Folder
+### 1. Clone the repository
 
 ```bash
-cd "C:\Users\ad\Desktop\3rd sem\PRJ-Mini project"
+git clone https://github.com/divudigital/PRJ-Mini-project.git
+cd PRJ-Mini-project
 ```
 
-### Step 2: Create & Activate Virtual Environment
+### 2. Create a virtual environment
 
-**On Windows (PowerShell):**
+Windows PowerShell:
 
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 ```
 
-**On macOS/Linux (Bash):**
+### 3. Install dependencies
 
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-```
-
-### Step 3: Install Required Packages
-
-```bash
-pip install --upgrade pip
+```powershell
 pip install -r requirements.txt
 ```
 
-**Or Install Individually:**
+### 4. Verify required local artifacts
 
-```bash
-pip install streamlit pandas numpy plotly scikit-learn joblib
-```
+Ensure the required model files, dataset files, and FAISS index are available in their expected directories. These artifacts are not necessarily included in the public repository.
 
-### Step 4: Verify Installation
+### 5. Run the dashboard
 
-```bash
-python -c "import streamlit; print(f'Streamlit version: {streamlit.__version__}')"
-```
-
----
-
-## 📂 Project Structure
-
-```
-PRJ-Mini project/
-│
-├── app.py                          # Main Streamlit application
-├── README.md                       # This file
-├── requirements.txt                # Python dependencies
-│
-├── colab_data/                     # Pre-trained models & data
-│   ├── best_ml_model.pkl          # ML model (serialized)
-│   ├── scaler.pkl                 # Feature scaler (serialized)
-│   ├── 5g_network_data.csv        # 5G network dataset
-│   ├── lstm_model.h5              # LSTM model
-│   ├── gru_model.h5               # GRU model
-│   └── logs.txt                   # Model training logs
-│
-└── .venv/                          # Virtual environment (created after setup)
-```
-
----
-
-## ▶️ Running the Project
-
-### Method 1: Simple Start (Recommended)
-
-```bash
+```powershell
 streamlit run app.py
 ```
 
-### Method 2: With Explicit Python & Port
+Open:
 
-```bash
-python -m streamlit run app.py --server.port 8501
+```text
+http://localhost:8501
 ```
 
-### Method 3: With Full Configuration
+## Docker Deployment
 
-```bash
-streamlit run app.py --server.port 8501 --logger.level=info --client.showErrorDetails=true
-```
+Build the Docker image from the project directory:
 
-**Output:**
-```
-  You can now view your Streamlit app in your browser.
-  Local URL: http://localhost:8501
-  Network URL: http://192.168.x.x:8501
-```
-
----
-
-## 🌐 Accessing the Dashboard
-
-1. **After running the app**, open your browser
-2. Go to: **http://localhost:8501**
-3. Dashboard loads automatically with default values
-
-### Dashboard Components
-
-| Component | Purpose |
-|-----------|---------|
-| **Sidebar Input Panel** | Adjust RAN KPIs (Signal, Speed, Latency, Jitter, Network Type) |
-| **QoS Metrics Card** | Real-time QoS status, Model confidence, UX score |
-| **Call Drop Risk Badge** | Visual risk indicator (Green/Yellow/Red) |
-| **KPI Impact Chart** | Horizontal bar chart showing impact on call drop |
-| **Model Comparison Table** | Performance metrics of different ML models |
-
----
-
-## 🎛️ How to Use the Dashboard
-
-### 1. **Adjust RAN KPIs** (Left Sidebar)
-- **Signal Strength**: -120 to -50 dBm
-- **Download Speed**: 0-1000 Mbps
-- **Upload Speed**: 0-500 Mbps
-- **Latency**: 0-200 ms
-- **Jitter**: 0-100 ms
-- **Network Type**: 5G NSA or 5G SA
-
-### 2. **Click "🚀 Predict QoS"** Button
-- Triggers ML model prediction
-- Displays predicted QoS status
-- Shows model confidence percentage
-- Calculates UX score and call drop risk
-
-### 3. **View Results**
-- **QoS Status**: GOOD or POOR
-- **User Experience Score**: 0-100
-- **Call Drop Risk**: LOW, MEDIUM, or HIGH (color-coded)
-- **Top KPI Impacts**: Visual ranking of KPI importance
-
-### 4. **Review Model Performance**
-- Table shows accuracy and F1-scores
-- Compares 5 different ML models
-- Identifies best-performing model
-
----
-
-## 🔧 Troubleshooting
-
-### Issue: "ModuleNotFoundError: No module named 'streamlit'"
-
-**Solution:**
-```bash
-pip install streamlit
-```
-
-### Issue: "FileNotFoundError: colab_data/best_ml_model.pkl"
-
-**Solution:**
-- Ensure `colab_data/` folder exists in project directory
-- Verify model files are present:
-  - `best_ml_model.pkl`
-  - `scaler.pkl`
-
-### Issue: "Port 8501 already in use"
-
-**Solution:**
-```bash
-streamlit run app.py --server.port 8502
-```
-(Replace 8502 with any available port)
-
-### Issue: Dashboard shows "Script execution error"
-
-**Solution:**
-1. Check Python version: `python --version` (should be 3.8+)
-2. Reinstall dependencies: `pip install -r requirements.txt --force-reinstall`
-3. Restart the Streamlit app
-
-### Issue: Slow performance or crashes
-
-**Solution:**
-- Close other applications to free RAM
-- Clear Streamlit cache: `streamlit cache clear`
-- Reduce dataset size if loading large CSV files
-
----
-
-## 📊 Key Model Information
-
-### Supported ML Models
-| Model | Accuracy | F1-Score | Type |
-|-------|----------|----------|------|
-| Random Forest | 92.1% | 91.8% | Tree-based |
-| XGBoost | 93.4% | 93.1% | Boosting |
-| LSTM | 94.68% | 94.67% | Deep Learning (Sequential) |
-| GRU | 94.68% | 94.67% | Deep Learning (Recurrent) |
-| Transformer | 96.2% | 96.0% | Deep Learning (Attention) |
-
-### Features Used
-
-The model uses **12 features**:
-1. Signal Strength (dBm)
-2. Download Speed (Mbps)
-3. Upload Speed (Mbps)
-4. Latency (ms)
-5. Jitter (ms)
-6. Network Type (5G NSA=0, 5G SA=1)
-7. Hour (Time feature)
-8. Day (Time feature)
-9. Month (Time feature)
-10. Weekday (Time feature)
-11. Peak Hour (Binary)
-12. Weekend (Binary)
-
----
-
-## 📝 Environment Variables (Optional)
-
-To customize Streamlit behavior, create a `.streamlit/config.toml` file:
-
-```toml
-[theme]
-primaryColor = "#4f46e5"
-backgroundColor = "#070B14"
-secondaryBackgroundColor = "#1e293b"
-textColor = "#e2e8f0"
-font = "sans serif"
-
-[server]
-port = 8501
-headless = false
-runOnSave = true
-
-[logger]
-level = "info"
-```
-
----
-
-## 🛑 Stopping the App
-
-Press **Ctrl + C** in the terminal where Streamlit is running.
-
----
-
-## 📞 Project Details
-
-- **Project Type**: Telecom AI/ML Dashboard
-- **Framework**: Streamlit + Plotly
-- **Data Source**: 5G Network CSV dataset
-- **Models**: Scikit-Learn, TensorFlow/Keras
-- **Python Version**: 3.8+
-
----
-
-## 📌 Important Notes
-
-✅ **Before First Run:**
-- Ensure all files in `colab_data/` are present
-- Verify Python 3.8+ is installed
-- Create virtual environment for isolation
-
-✅ **Performance Tips:**
-- Dashboard automatically caches predictions
-- Use `--logger.level=error` to reduce console output
-- Close browser tabs to reduce memory usage
-
-✅ **Data Privacy:**
-- Models are trained and stored locally
-- No data is sent to external servers
-- CSV data stays within project folder
-
----
-
-## 🎓 Learning Resources
-
-- **Streamlit Docs**: https://docs.streamlit.io
-- **Plotly Documentation**: https://plotly.com/python
-- **Scikit-Learn**: https://scikit-learn.org
-- **5G QoS Concepts**: https://www.3gpp.org
-
----
-
-## 📄 License
-
-This project is for educational and research purposes.
-
----
-
-## ✅ Verification Checklist
-
-Before reporting issues, verify:
-
-- [ ] Python 3.8+ installed
-- [ ] Virtual environment activated
-- [ ] All dependencies installed: `pip list | grep streamlit`
-- [ ] `colab_data/` folder exists with model files
-- [ ] Port 8501 is not in use
-- [ ] No firewall blocking localhost:8501
-
----
-
-## 🚀 Quick Start Command (One-Liner)
-
-**Windows PowerShell:**
 ```powershell
-cd "C:\Users\ad\Desktop\3rd sem\PRJ-Mini project"; .\.venv\Scripts\Activate.ps1; streamlit run app.py
+docker build -t qos-agent:latest .
 ```
 
-**macOS/Linux:**
-```bash
-cd ~/PRJ-Mini\ project && source .venv/bin/activate && streamlit run app.py
+Run the container:
+
+```powershell
+docker run -d --name qos-agent-updated -p 8501:8501 qos-agent:latest
 ```
 
----
+Check running containers:
 
-**Happy Testing! 🎯📡**
+```powershell
+docker ps
+```
 
-For issues or questions, ensure all steps above are followed correctly.
+View application logs:
+
+```powershell
+docker logs qos-agent-updated
+```
+
+Open the dashboard:
+
+```text
+http://localhost:8501
+```
+
+Stop the container:
+
+```powershell
+docker stop qos-agent-updated
+```
+
+## Testing
+
+The project includes test scripts for the agent workflow and RAG retrieval:
+
+```powershell
+python test_rag.py
+python test_agent.py
+```
+
+These tests help verify knowledge retrieval and the agent's response workflow. They should not be interpreted as proof of live telecom-network integration.
+
+## Important Implementation Scope
+
+- QoS assessment and threshold-based monitoring are application-level prototype logic.
+- ML classification and rule-based KPI assessment are distinct components.
+- RAG retrieves information from the configured local knowledge base.
+- Remediation actions are simulated through application-level tools.
+- The project does not directly reconfigure live 5G network infrastructure.
+- Thresholds used in the prototype should be interpreted in the context of the implemented configuration and dataset.
+
+## Future Enhancements
+
+- Integrate with authorized network telemetry and orchestration APIs.
+- Evaluate the framework using larger and more diverse 5G network datasets.
+- Add systematic agent evaluation, response-quality checks, and failure analysis.
+- Measure individual workflow-stage latency and evaluate performance under concurrent dashboard usage.
+
+## Repository
+
+GitHub: https://github.com/divudigital/PRJ-Mini-project
+
+**Project purpose:** Academic and research prototype for 5G QoS monitoring, explainable analysis, and simulated agentic remediation.
